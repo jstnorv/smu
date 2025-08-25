@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     const { content } = req.body;
     if (!content) return res.status(400).json({ error: 'Content required' });
     const post = new Post({
-      user: decoded.id,
+      author: decoded.id,
       content,
       createdAt: new Date()
     });
