@@ -31,11 +31,15 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   console.log('Login endpoint hit:', req.body);
   try {
-    const { email, password } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email and password required.' });
+    const { username, email, password } = req.body;
+    if ((!username && !email) || !password) {
+      return res.status(400).json({ error: 'Username or email and password required.' });
     }
-    const user = await User.findOne({ email });
+    // Find user by username or email
+    const user = await User.findOne({ $or: [
+      username ? { username } : {},
+      email ? { email } : {}
+    ] });
     if (!user) {
       return res.status(401).json({ error: 'Invalid credentials.' });
     }

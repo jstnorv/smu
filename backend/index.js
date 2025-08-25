@@ -26,8 +26,10 @@ app.get('/', (req, res) => {
 // API routes
 const apiRoutes = require('./routes/api');
 const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts');
 app.use('/api', apiRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 // Socket.io setup
 io.on('connection', (socket) => {
